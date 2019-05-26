@@ -1,4 +1,3 @@
-//import { BUNGIEAPIKEY } from './BUNGIECRED';
 const BUNGIEAPIKEY = require('./BUNGIECRED').BUNGIEAPIKEY;
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
 const OPTIONS = {
@@ -18,7 +17,6 @@ async function main(name) {
 	}
 }
 
-
 function GetMembershipData(name) {
 	return fetch(BUNGIEROOTPATH + SEARCHPLAYERURL(name), {
 		method: 'GET',
@@ -33,4 +31,9 @@ function GetMembershipData(name) {
 	});
 }
 
-main('Warrior342');
+module.exports = {
+	main
+};
+
+//main('Warrior342');
+
