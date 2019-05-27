@@ -20,6 +20,7 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
     let prom = main(this.state.username);
     prom.then(response => {
       this.setState({
@@ -38,10 +39,10 @@ class App extends React.Component {
           Send default request
           <button onClick={() => main('Warrior342')}>Send Request</button>
         </div>
-        <div>
+        <form onSubmit={this.handleSubmit}>
           <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
-          <button onClick={this.handleSubmit}>Send name</button>
-        </div>
+          <button type="submit">Send name</button>
+        </form>
 
         <div>
           Membership id: <span>{this.state.membershipId}</span>
