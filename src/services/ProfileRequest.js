@@ -14,6 +14,7 @@ async function main(name) {
 	}
 	catch(e) {
 		console.error(e);
+		alert(e);
 	}
 }
 
@@ -28,6 +29,8 @@ function GetMembershipData(name) {
 			'membershipId': temp.Response[0].membershipId,
 			'membershipType': temp.Response[0].membershipType
 		};
+	}).catch(reason => {
+		throw reason;
 	});
 }
 
