@@ -9,12 +9,21 @@ const GETPROFILEURL = (membershipId, platformId) => {return `Destiny2/${platform
 const fetch = require("node-fetch");
 // TODO: Remember to uninstall node-fetch when exporting to production
 
+function MembershipData(membershipId, membershipType) {
+	this.membershipId = membershipId;
+	this.membershipType = membershipType;
+}
+
+
+
 async function main(name) {
 	try {
-		let membershipData = await GetMembershipData(name);
-		console.log(membershipData);
-		let characterIds = await GetProfile(membershipData.membershipId, membershipData.membershipType);
-		console.log(`Ids: ${characterIds}`);
+		let temp = await GetMembershipData(name);
+		let memberObject = new MembershipData(temp.membershipId, temp.membershipType);
+
+		// Array of character ids
+		let characterIds = await GetProfile(memberObject.membershipId, memberObject.membershipType);
+
 		return membershipData;
 	}
 	catch(e) {
