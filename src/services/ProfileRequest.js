@@ -14,8 +14,6 @@ function MembershipData(membershipId, membershipType) {
 	this.membershipType = membershipType;
 }
 
-
-
 async function main(name) {
 	try {
 		let temp = await GetMembershipData(name);
@@ -28,7 +26,7 @@ async function main(name) {
 	}
 	catch(e) {
 		console.error(e);
-		//alert(e);
+		throw e;
 	}
 }
 
