@@ -5,6 +5,7 @@ const OPTIONS = {
 };
 const SEARCHPLAYERURL = (name) => {return `Destiny2/SearchDestinyPlayer/-1/${name}/`};
 const fetch = require("node-fetch");
+// TODO: Remember to uninstall node-fetch when exporting to production
 
 async function main(name) {
 	try {
@@ -14,7 +15,7 @@ async function main(name) {
 	}
 	catch(e) {
 		console.error(e);
-		alert(e);
+		//alert(e);
 	}
 }
 
@@ -38,5 +39,5 @@ module.exports = {
 	main
 };
 
-//main('Warrior342');
+main('Warrior342');
 

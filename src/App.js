@@ -26,6 +26,8 @@ class App extends React.Component {
         'membershipId': response.membershipId,
         'membershipType': response.membershipType,
       });
+    }).catch(reason => {
+      alert(`Failed with response: ${reason}`);
     });
   }
 
