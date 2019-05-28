@@ -42,6 +42,12 @@ async function main(name) {
 			activityHistory[i] = results[i + characterIds.length].activities;
 		}
 
+		let activityInstanceIds = activityHistory.map(charActivites => {
+			return charActivites.map(activity => {
+				return activity.activityDetails.instanceId;
+			});
+		});
+
 		return memberObject;
 	}
 	catch(e) {
