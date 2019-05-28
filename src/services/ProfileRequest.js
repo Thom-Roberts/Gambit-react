@@ -32,9 +32,10 @@ async function main(name) {
 			return GetActivityHistory(memberObject.membershipId, memberObject.membershipType, charId);
 		});
 
-		Promise.all(historicalStats.concat(activityHistory)).then(values => {
-			return memberObject;
-		});
+		let results = await Promise.all(historicalStats.concat(activityHistory));
+
+
+		return memberObject;
 	}
 	catch(e) {
 		console.error(e);
