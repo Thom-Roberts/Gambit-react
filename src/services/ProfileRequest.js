@@ -1,3 +1,5 @@
+'use strict'
+
 const BUNGIEAPIKEY = require('./BUNGIECRED').BUNGIEAPIKEY;
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
 const OPTIONS = {
@@ -34,6 +36,11 @@ async function main(name) {
 
 		let results = await Promise.all(historicalStats.concat(activityHistory));
 
+		// Map results back into original object
+		for(let i = 0; i < characterIds.length; ++i) {
+			historicalStats[i] = results[i];
+			activityHistory[i] = results[i + characterIds.length];
+		}
 
 		return memberObject;
 	}
