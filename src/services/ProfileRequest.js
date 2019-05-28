@@ -38,8 +38,8 @@ async function main(name) {
 
 		// Map results back into original object
 		for(let i = 0; i < characterIds.length; ++i) {
-			historicalStats[i] = results[i];
-			activityHistory[i] = results[i + characterIds.length];
+			historicalStats[i] = results[i].allPvECompetitive.allTime;
+			activityHistory[i] = results[i + characterIds.length].activities;
 		}
 
 		return memberObject;
