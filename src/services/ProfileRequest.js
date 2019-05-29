@@ -8,7 +8,6 @@ const OPTIONS = {
 const SEARCHPLAYERURL = (name) => {return `Destiny2/SearchDestinyPlayer/-1/${name}/`};
 const GETPROFILEURL = (membershipId, platformId) => {return `Destiny2/${platformId}/Profile/${membershipId}/?components=100`};
 const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats?modes=64`;};
-const GETACTIVITYHISTORYURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?mode=64`}
 
 const gameRequests = require('./Games');
 const fetch = require("node-fetch");
@@ -27,46 +26,14 @@ async function main(name) {
 		// Array of character ids
 		let characterIds = await GetProfile(memberObject.membershipId, memberObject.membershipType);
 		
+		// TODO: We can probably delay Promise.all'ing this until the last moment, since
+		// we shouldn't need to manipulate this at all
+		// Maybe if we need to fetch the hash ids from the database
 		let historicalStats = characterIds.map(charId => {
 			return GetHistoricalStats(memberObject.membershipId, memberObject.membershipType, charId);
 		});
 
-		let activityHistory = characterIds.map(charId => {
-			return GetActivityHistory(memberObject.membershipId, memberObject.membershipType, charId);
-		});
-
-		let results = await Promise.all(historicalStats.concat(activityHistory));
-
-		// Map results back into original object
-		for(let i = 0; i < characterIds.length; ++i) {
-			historicalStats[i] = results[i].allPvECompetitive.allTime;
-			activityHistory[i] = results[i + characterIds.length].activities;
-		}
-
-		let activityInstanceIds = activityHistory.map(charActivites => {
-			return charActivites.map(activity => {
-				return activity.activityDetails.instanceId;
-			});
-		});
-
-		let gamePromises = [];
-
-		activityInstanceIds.forEach(async character => {
-			let characterGameReports = [];
-			character.forEach(instanceId => {
-				
-				let val = gameRequests.GetPostGameReport(instanceId);
-
-				characterGameReports.push(val);
-			});
-			gamePromises.push(characterGameReports);
-		});
-
-		let games = [];
-		for(let game of gamePromises) {
-			let temp = await Promise.all(game);
-			games.push(temp);
-		}
+		let games = await gameRequests.GetGames(memberObject.membershipId, memberObject.membershipType, characterIds);
 
 		// Now have a collection of games here
 
@@ -109,19 +76,6 @@ function GetProfile(membershipId, platformId) {
 
 function GetHistoricalStats(membershipId, membershipType, characterId) {
 	return fetch(BUNGIEROOTPATH + GETHISTORICALSTATSURL(membershipId, membershipType, characterId), {
-		method: 'GET',
-		mode: 'cors',
-		headers: OPTIONS,
-	}).then(async response => {
-		let temp = await response.json();
-		return temp.Response;
-	}).catch(reason => {
-		throw reason;
-	});
-}
-
-function GetActivityHistory(membershipId, membershipType, characterId) {
-	return fetch(BUNGIEROOTPATH + GETACTIVITYHISTORYURL(membershipId, membershipType, characterId), {
 		method: 'GET',
 		mode: 'cors',
 		headers: OPTIONS,
