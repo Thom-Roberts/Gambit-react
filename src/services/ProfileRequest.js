@@ -10,6 +10,7 @@ const GETPROFILEURL = (membershipId, platformId) => {return `Destiny2/${platform
 const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats?modes=64`;};
 const GETACTIVITYHISTORYURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?mode=64`}
 
+const gameRequests = require('./Games');
 const fetch = require("node-fetch");
 // TODO: Remember to uninstall node-fetch when exporting to production
 
@@ -47,6 +48,27 @@ async function main(name) {
 				return activity.activityDetails.instanceId;
 			});
 		});
+
+		let gamePromises = [];
+
+		activityInstanceIds.forEach(async character => {
+			let characterGameReports = [];
+			character.forEach(instanceId => {
+				
+				let val = gameRequests.GetPostGameReport(instanceId);
+
+				characterGameReports.push(val);
+			});
+			gamePromises.push(characterGameReports);
+		});
+
+		let games = [];
+		for(let game of gamePromises) {
+			let temp = await Promise.all(game);
+			games.push(temp);
+		}
+
+		// Now have a collection of games here
 
 		return memberObject;
 	}
