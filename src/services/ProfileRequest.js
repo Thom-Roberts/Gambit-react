@@ -1,5 +1,3 @@
-'use strict'
-
 const BUNGIEAPIKEY = require('./BUNGIECRED').BUNGIEAPIKEY;
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
 const OPTIONS = {
@@ -25,7 +23,7 @@ async function main(name) {
 
 		// Array of character ids
 		let characterIds = await GetProfile(memberObject.membershipId, memberObject.membershipType);
-		
+
 		// TODO: We can probably delay Promise.all'ing this until the last moment, since
 		// we shouldn't need to manipulate this at all
 		// Maybe if we need to fetch the hash ids from the database
