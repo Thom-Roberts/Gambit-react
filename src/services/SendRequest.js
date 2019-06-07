@@ -9,14 +9,15 @@ function SendRequest(url) {
             'X-Api-Key': BUNGIEAPIKEY,
          },
       };
-   
+
       request.get(options, (err, res, body) => {
          if(err) {
-            reject(err); 
+            reject(err);
          }
-         if(res.statusCode !== 200) {
+			if(res.statusCode !== 200) {
             reject(`Could not resolve connection in time`);
          }
+
 
          resolve(JSON.parse(body));
       });

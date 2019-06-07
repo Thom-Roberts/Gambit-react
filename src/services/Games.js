@@ -1,97 +1,62 @@
-'use strict'
-
-const BUNGIEAPIKEY = require('./BUNGIECRED').BUNGIEAPIKEY;
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
-const OPTIONS = {
-	'X-API-Key': BUNGIEAPIKEY
-};
 
 const GETACTIVITYHISTORYURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/Activities/?mode=64`}
-const GETPGCRURL = instaneid => {return `${BUNGIEROOTPATH}Destiny2/Stats/PostGameCarnageReport/${instaneid}/`};
+const GETPGCRURL = instanceid => {return `/Destiny2/Stats/PostGameCarnageReport/${instanceid}/`};
 
-const fetch = require("node-fetch");
-const request = require('request');
-// TODO: Remember to uninstall node-fetch when exporting to production
+const send = require('./SendRequest').SendRequest;
 
 function SendManifestRequest() {
-   return new Promise((resolve, reject) => {
-      const options = {
-         'url': 'http://www.bungie.net/Platform/Destiny2/Manifest/',
-         'headers': {
-            'X-Api-Key': BUNGIEAPIKEY,
-         },
-      };
-
-      request.get(options, (err, res, body) => {
-         resolve(JSON.parse(body));
-      });
-   });
-   
+	try {
+		return send(`${BUNGIEROOTPATH}Destiny2/Manifest/`);
+	}
+	catch(e) {
+		throw new Error(`Failed to fetch manifest: ${e}`);
+	}
 }
 
-function GetGames(membershipId, membershipType, characterIds) {
-   return new Promise(async (resolve, reject) => {
-      let activityHistory = characterIds.map(charId => {
-         return GetActivityHistory(membershipId, membershipType, charId);
-      });
+async function GetGames(membershipId, membershipType, characterIds) {
+	try {
+		let activityHistory = characterIds.map(charId => {
+			return GetActivityHistory(membershipId, membershipType, charId);
+		});
 
-      activityHistory = await Promise.all(activityHistory);
+		activityHistory = await Promise.all(activityHistory);
 
-      let activityInstanceIds = activityHistory.map(charActivites => {
-			return charActivites.activities.map(activity => {
+		let activityInstanceIds = activityHistory.map(charActivites => {
+			return charActivites.Response.activities.map(activity => {
 				return activity.activityDetails.instanceId;
 			});
 		});
 
-      let gamePromises = [];
-
-		activityInstanceIds.forEach(async character => {
-			let characterGameReports = [];
-			character.forEach(instanceId => {
-				
-				let val = GetPostGameReport(instanceId);
-
-				characterGameReports.push(val);
+		let gamePromises = activityInstanceIds.map(character => {
+			return character.map(instanceId => {
+				return GetPostGameReport(instanceId);
 			});
-			gamePromises.push(characterGameReports);
-		});
+		});;
 
 		let games = [];
-		for(let game of gamePromises) {
-			let temp = await Promise.all(game);
-			games.push(temp);
-      }
-      
-      resolve(games);
 
-   });
+		for(let gameGroup of gamePromises) {
+			let temp = await Promise.all(gameGroup);
+			games.push(temp.map(game => {
+				return game.Response;
+			}));
+		}
+
+		return games;
+	}
+	catch(e) {
+		throw new Error(`Failed to acquire games: ${e}`);
+	}
 }
 
-function GetActivityHistory(membershipId, membershipType, characterId) {
-	return fetch(BUNGIEROOTPATH + GETACTIVITYHISTORYURL(membershipId, membershipType, characterId), {
-		method: 'GET',
-		mode: 'cors',
-		headers: OPTIONS,
-	}).then(async response => {
-		let temp = await response.json();
-		return temp.Response;
-	}).catch(reason => {
-		throw reason;
-	});
+async function GetActivityHistory(membershipId, membershipType, characterId) {
+	return send(BUNGIEROOTPATH + GETACTIVITYHISTORYURL(membershipId, membershipType, characterId));
 }
 
 
 function GetPostGameReport(instanceid) {
-   return fetch(GETPGCRURL(instanceid), {
-      method: 'GET',
-		mode: 'cors',
-		headers: OPTIONS
-   }).then(async response => {
-      let temp = await response.json();
-      return temp.Response;
-   }).catch(reason => {
-      throw reason;
-   });
+	return send(BUNGIEROOTPATH + GETPGCRURL(instanceid));
 }
 
 module.exports = {
