@@ -10,7 +10,24 @@ const GETACTIVITYHISTORYURL = (membershipId, platformId, characterId) => {return
 const GETPGCRURL = instaneid => {return `${BUNGIEROOTPATH}Destiny2/Stats/PostGameCarnageReport/${instaneid}/`};
 
 const fetch = require("node-fetch");
+const request = require('request');
 // TODO: Remember to uninstall node-fetch when exporting to production
+
+function SendManifestRequest() {
+   return new Promise((resolve, reject) => {
+      const options = {
+         'url': 'http://www.bungie.net/Platform/Destiny2/Manifest/',
+         'headers': {
+            'X-Api-Key': BUNGIEAPIKEY,
+         },
+      };
+
+      request.get(options, (err, res, body) => {
+         resolve(JSON.parse(body));
+      });
+   });
+   
+}
 
 function GetGames(membershipId, membershipType, characterIds) {
    return new Promise(async (resolve, reject) => {
@@ -78,5 +95,6 @@ function GetPostGameReport(instanceid) {
 }
 
 module.exports = {
-   GetGames
+	GetGames,
+	SendManifestRequest
 };

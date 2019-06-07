@@ -1,6 +1,6 @@
 import React from 'react';
 import { main } from './services/ProfileRequest';
-
+import { SendManifestRequest } from './services/Games';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +21,9 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    let prom = main(this.state.username);
+    //let prom = main(this.state.username);
+    let prom = SendManifestRequest();
+    console.log(prom);
     prom.then(response => {
       this.setState({
         'membershipId': response.membershipId,

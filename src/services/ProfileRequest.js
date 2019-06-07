@@ -10,8 +10,7 @@ const GETPROFILEURL = (membershipId, platformId) => {return `Destiny2/${platform
 const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats?modes=64`;};
 
 const gameRequests = require('./Games');
-const fetch = require("node-fetch");
-// TODO: Remember to uninstall node-fetch when exporting to production
+// TODO: Change requests to use the request library instead
 
 function MembershipData(membershipId, membershipType) {
 	this.membershipId = membershipId;
