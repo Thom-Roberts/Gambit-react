@@ -1,7 +1,7 @@
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
 const SEARCHPLAYERURL = (name) => {return `/Destiny2/SearchDestinyPlayer/-1/${name}/`};
 const GETPROFILEURL = (membershipId, platformId) => {return `/Destiny2/${platformId}/Profile/${membershipId}/?components=100`};
-const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats?modes=64`;};
+const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/?modes=64`;};
 
 const gameRequests = require('./Games');
 const send = require('./SendRequest').SendRequest;
@@ -24,16 +24,21 @@ async function main(name) {
 		// we shouldn't need to manipulate this at all
 		// Maybe if we need to fetch the hash ids from the database
 
-		// let historicalStats = characterIds.map(charId => {
-		// 	return GetHistoricalStats(memberObject.membershipId, memberObject.membershipType, charId);
-		// });
+		let historicalStats = characterIds.map(charId => {
+			return GetHistoricalStats(memberObject.membershipId, memberObject.membershipType, charId);
+		});
 
-		// historicalStats = await Promise.all(historicalStats);
+		historicalStats = await Promise.all(historicalStats);
 
-		// TODO: Fix game requests
-		let games = await gameRequests.GetGames(memberObject.membershipId, memberObject.membershipType, characterIds);
+		// let games = await gameRequests.GetGames(memberObject.membershipId, memberObject.membershipType, characterIds);
 
 		// Now have a collection of games here
+
+		memberObject.characters = characterIds.map(id => {
+			return {
+				'id': id,
+			};
+		});
 
 		return memberObject;
 	}

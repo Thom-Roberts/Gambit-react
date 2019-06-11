@@ -9,6 +9,7 @@ class App extends React.Component {
       'username': '',
       'membershipId': '',
       'membershipType': '',
+      'characters': [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,13 +22,13 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    //let prom = main(this.state.username);
-    let prom = SendManifestRequest();
-    console.log(prom);
+    let prom = main(this.state.username);
+  
     prom.then(response => {
       this.setState({
         'membershipId': response.membershipId,
         'membershipType': response.membershipType,
+        'characters': response.characters,
       });
     }).catch(reason => {
       alert(`Failed with response: ${reason}`);
@@ -53,6 +54,18 @@ class App extends React.Component {
         <div>
           Membership type: <span>{this.state.membershipType}</span>
         </div>
+
+        {this.state.characters.length > 0 &&
+          <ul>
+            {this.state.characters.map(character => {
+              return <li key={character.id}>
+                  {character.id}
+                </li>
+            })}
+          </ul>
+        }
+
+
       </div>
     );
   }

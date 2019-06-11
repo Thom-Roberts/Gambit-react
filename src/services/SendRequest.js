@@ -18,7 +18,6 @@ function SendRequest(url) {
             reject(`Could not resolve connection in time`);
          }
 
-
          resolve(JSON.parse(body));
       });
    });
