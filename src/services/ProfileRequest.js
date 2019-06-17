@@ -30,14 +30,14 @@ async function main(name) {
 
 		historicalStats = await Promise.all(historicalStats);
 
-		// let games = await gameRequests.GetGames(memberObject.membershipId, memberObject.membershipType, characterIds);
+		//let games = await gameRequests.GetGames(memberObject.membershipId, memberObject.membershipType, characterIds);
 
 		// Now have a collection of games here
 
-		memberObject.characters = characterIds.map(id => {
-			return {
-				'id': id,
-			};
+		memberObject.characters = characterIds;
+
+		memberObject.stats = historicalStats.map(characterStats => {
+			return characterStats.Response.allPvECompetitive.allTime;
 		});
 
 		return memberObject;
@@ -84,5 +84,5 @@ module.exports = {
 	main
 };
 
-main('Warrior342');
+//main('Warrior342');
 

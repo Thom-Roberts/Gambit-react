@@ -10,10 +10,13 @@ class App extends React.Component {
       'membershipId': '',
       'membershipType': '',
       'characters': [],
+      'historicalStats': [],
+      'manifest': {},
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleManifestClick = this.handleManifestClick.bind(this);
   }
 
   handleChange(event) {
@@ -29,23 +32,35 @@ class App extends React.Component {
         'membershipId': response.membershipId,
         'membershipType': response.membershipType,
         'characters': response.characters,
+        'historicalStats': response.stats,
       });
     }).catch(reason => {
       alert(`Failed with response: ${reason}`);
     });
   }
 
+  handleManifestClick(event) {
+    event.preventDefault();
+    let prom = SendManifestRequest();
+
+    prom.then(value => {
+      this.setState({'manifest': value}, () => {
+        alert('Finished manifest fetch');
+      });
+    }).catch(() => {
+      alert('Epic fail!');
+    }); 
+  }
+
   render() {
     return (
       <div>
-        <div>
-          Send default request
-          <button onClick={() => main('Warrior342')}>Send Request</button>
-        </div>
         <form onSubmit={this.handleSubmit}>
           <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
           <button type="submit">Send name</button>
         </form>
+
+        <button onClick={this.handleManifestClick}>Get Manifest</button>
 
         <div>
           Membership id: <span>{this.state.membershipId}</span>
@@ -63,6 +78,21 @@ class App extends React.Component {
                 </li>
             })}
           </ul>
+        }
+
+        {this.state.historicalStats.length > 0 && 
+          <div>
+            {this.state.historicalStats.map((characterStats, index) => {
+              return <ul key={this.state.characters[index].id}>
+                {Object.keys(characterStats).map(key => {
+                  return <li>
+                    {key}: {characterStats[key].basic.displayValue}
+                  </li>
+                })}
+
+              </ul>
+            })}
+          </div>
         }
 
 

@@ -5,9 +5,11 @@ const GETPGCRURL = instanceid => {return `/Destiny2/Stats/PostGameCarnageReport/
 
 const send = require('./SendRequest').SendRequest;
 
-function SendManifestRequest() {
+async function SendManifestRequest() {
 	try {
-		return send(`${BUNGIEROOTPATH}Destiny2/Manifest/`);
+		let manifest = await send(`${BUNGIEROOTPATH}Destiny2/Manifest/`);
+
+		return send('https://www.bungie.net/' + manifest.Response.jsonWorldContentPaths.en);
 	}
 	catch(e) {
 		throw new Error(`Failed to fetch manifest: ${e}`);
