@@ -11,7 +11,6 @@ class App extends React.Component {
       'membershipType': '',
       'characters': [],
       'historicalStats': [],
-      'manifest': {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,9 +43,7 @@ class App extends React.Component {
     let prom = SendManifestRequest();
 
     prom.then(value => {
-      this.setState({'manifest': value}, () => {
         alert('Finished manifest fetch');
-      });
     }).catch(() => {
       alert('Epic fail!');
     }); 
