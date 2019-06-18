@@ -4,8 +4,8 @@ const GETPROFILEURL = (membershipId, platformId) => {return `/Destiny2/${platfor
 const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/?modes=64`;};
 
 const gameRequests = require('./Games');
+const manifestRequests = require('./Manifest');
 const send = require('./SendRequest').SendRequest;
-// TODO: Change requests to use the request library instead
 
 function MembershipData(membershipId, membershipType) {
 	this.membershipId = membershipId;

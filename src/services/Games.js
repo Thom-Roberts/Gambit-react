@@ -4,20 +4,6 @@ const GETACTIVITYHISTORYURL = (membershipId, platformId, characterId) => {return
 const GETPGCRURL = instanceid => {return `/Destiny2/Stats/PostGameCarnageReport/${instanceid}/`};
 
 const send = require('./SendRequest').SendRequest;
-const man = require('./SendRequest').GetManifest;
-
-async function SendManifestRequest() {
-	try {
-		let manifest = await send(`${BUNGIEROOTPATH}Destiny2/Manifest/`);
-
-		await man('https://www.bungie.net/' + manifest.Response.mobileWorldContentPaths.en);
-
-		return 'Finished';
-	}
-	catch(e) {
-		throw new Error(`Failed to fetch manifest: ${e}`);
-	}
-}
 
 async function GetGames(membershipId, membershipType, characterIds) {
 	try {
@@ -66,7 +52,4 @@ function GetPostGameReport(instanceid) {
 
 module.exports = {
 	GetGames,
-	SendManifestRequest
 };
-
-SendManifestRequest();
