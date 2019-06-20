@@ -1,46 +1,24 @@
-let request = require('request');
-const http = require('http');
-const cred = require('./BUNGIECRED').BUNGIEAPIKEY;
-const base = 'http://www.bungie.net';
-const fs = require('fs');
+const sqlite3 = require('sqlite3').verbose();
 
-async function main() {
-   let temp = await sendManifestRequest();
+let db = new sqlite3.Database('./db.sqlite3', (err) => {
+   if(err) {
+      console.error(err);
+   }
+});
 
-   let manifest = await sendOtherRequest(temp.Response.jsonWorldContentPaths.en);
+let sql = `	SELECT *
+From DestinyRaceDefinition
+WHERE id = 898834093
+`;
 
-   //console.log(manifest.DestinyAchievementDefinition);
-}
-
-function sendOtherRequest(extension) {
-   return new Promise((resolve, reject) => {
-      const options = {
-         'url': base + extension,
-         'headers': {
-            'X-Api-Key': cred,
-         },
-      };
-
-      request.get(options, (err, res, body) => {
-         resolve(JSON.parse(body));
-      });
+db.all(sql, [], (err, rows) => {
+   if (err) {
+     throw err;
+   }
+   rows.forEach((row) => {
+     console.log(row.json);
    });
-}
-
-function sendManifestRequest() {
-   return new Promise((resolve, reject) => {
-      const options = {
-         'url': 'http://www.bungie.net/Platform/Destiny2/Manifest/',
-         'headers': {
-            'X-Api-Key': cred,
-         },
-      };
-
-      request.get(options, (err, res, body) => {
-         resolve(JSON.parse(body));
-      });
-   });
-   
-}
-
-main();
+ });
+  
+ // close the database connection
+ db.close();

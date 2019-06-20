@@ -2,18 +2,25 @@ const request = require('request');
 const fs = require('fs');
 const unzipper = require('unzipper');
 const path = require('path');
+const sqlite3 = require('sqlite3').verbose();
+
+const db = new sqlite3.Database('./db.sqlite3');
 
 async function GetManifest() {
 	try {
 		let manifest = await send(`${BUNGIEROOTPATH}Destiny2/Manifest/`);
 
-		await SendManifestRequest('https://www.bungie.net/' + manifest.Response.mobileWorldContentPaths.en);
-
-		return 'Finished';
+      await SendManifestRequest('https://www.bungie.net/' + manifest.Response.mobileWorldContentPaths.en);
+      
+      return;
 	}
 	catch(e) {
 		throw new Error(`Failed to fetch manifest: ${e}`);
 	}
+}
+
+function LookupHash(tableName, hashId) {
+
 }
 
 function SendManifestRequest(url) {
