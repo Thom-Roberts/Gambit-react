@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/gambit-react/static/js/main.0b57fa86.chunk.js",
+    "main.js.map": "/gambit-react/static/js/main.0b57fa86.chunk.js.map",
+    "runtime~main.js": "/gambit-react/static/js/runtime~main.ee64a9de.js",
+    "runtime~main.js.map": "/gambit-react/static/js/runtime~main.ee64a9de.js.map",
+    "static/js/2.3452ec08.chunk.js": "/gambit-react/static/js/2.3452ec08.chunk.js",
+    "static/js/2.3452ec08.chunk.js.map": "/gambit-react/static/js/2.3452ec08.chunk.js.map",
+    "index.html": "/gambit-react/index.html",
+    "precache-manifest.3f98435c4652f85edbf2749734d4f8aa.js": "/gambit-react/precache-manifest.3f98435c4652f85edbf2749734d4f8aa.js",
+    "service-worker.js": "/gambit-react/service-worker.js"
+  }
+}
