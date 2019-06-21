@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "92e315f0d5ecf740b224308c51c09df9",
+    "revision": "f8b6101aed2a88359c33318226386fc8",
     "url": "/Gambit-react/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Gambit-react/static/js/2.8ce62574.chunk.js"
   },
   {
-    "revision": "10f7addccece01177774",
-    "url": "/Gambit-react/static/js/main.af516ae5.chunk.js"
+    "revision": "335f39f1a672a1935d64",
+    "url": "/Gambit-react/static/js/main.ec9bbed1.chunk.js"
   },
   {
     "revision": "94624518d559b47295d3",
