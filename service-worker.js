@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Gambit-react/precache-manifest.a53e81644f6b01082c85f7e8a601106b.js"
+  "/Gambit-react/precache-manifest.a6e9e32048611807931184a2d77c674c.js"
 );
 
 self.addEventListener('message', (event) => {
