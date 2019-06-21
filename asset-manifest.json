@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/Gambit-react/static/js/main.4e2e832a.chunk.js",
-    "main.js.map": "/Gambit-react/static/js/main.4e2e832a.chunk.js.map",
+    "main.js": "/Gambit-react/static/js/main.af516ae5.chunk.js",
+    "main.js.map": "/Gambit-react/static/js/main.af516ae5.chunk.js.map",
     "runtime~main.js": "/Gambit-react/static/js/runtime~main.7dc1bf38.js",
     "runtime~main.js.map": "/Gambit-react/static/js/runtime~main.7dc1bf38.js.map",
-    "static/js/2.4c0a5b56.chunk.js": "/Gambit-react/static/js/2.4c0a5b56.chunk.js",
-    "static/js/2.4c0a5b56.chunk.js.map": "/Gambit-react/static/js/2.4c0a5b56.chunk.js.map",
+    "static/js/2.8ce62574.chunk.js": "/Gambit-react/static/js/2.8ce62574.chunk.js",
+    "static/js/2.8ce62574.chunk.js.map": "/Gambit-react/static/js/2.8ce62574.chunk.js.map",
     "index.html": "/Gambit-react/index.html",
-    "precache-manifest.209ce6fc1e7c1752de457ccabcfcbe0c.js": "/Gambit-react/precache-manifest.209ce6fc1e7c1752de457ccabcfcbe0c.js",
+    "precache-manifest.25b43e4f098168703914060594b59105.js": "/Gambit-react/precache-manifest.25b43e4f098168703914060594b59105.js",
     "service-worker.js": "/Gambit-react/service-worker.js"
   }
 }
