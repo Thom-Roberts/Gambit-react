@@ -1,7 +1,7 @@
 const request = require('request');
 const BUNGIEAPIKEY = require('./BUNGIECRED').BUNGIEAPIKEY;
 
-function SendRequest(url) {
+export function SendRequest(url) {
    return new Promise((resolve, reject) => {
       const options = {
          'url': url,
@@ -15,16 +15,10 @@ function SendRequest(url) {
             reject(err);
          }
 			if(res.statusCode !== 200) {
-            reject(`Could not resolve connection in time`);
+            reject(`Request failed: ${res.statusCode}: ${res.statusMessage}`);
          }
 
          resolve(JSON.parse(body));
       });
    });
 }
-
-
-
-module.exports = {
-   SendRequest,
-};

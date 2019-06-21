@@ -50,6 +50,6 @@ function GetPostGameReport(instanceid) {
 	return send(BUNGIEROOTPATH + GETPGCRURL(instanceid));
 }
 
-module.exports = {
-	GetGames,
-};
+export default {
+	GetGames
+}

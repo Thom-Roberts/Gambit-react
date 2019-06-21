@@ -1,7 +1,8 @@
 import React from 'react';
 import { main } from './services/ProfileRequest';
-import { SendManifestRequest } from './services/Games';
+
 class App extends React.Component {
+
   constructor(props) {
     super(props);
 
@@ -40,13 +41,8 @@ class App extends React.Component {
 
   handleManifestClick(event) {
     event.preventDefault();
-    let prom = SendManifestRequest();
 
-    prom.then(value => {
-        alert('Finished manifest fetch');
-    }).catch(() => {
-      alert('Epic fail!');
-    }); 
+    alert('clicked button');
   }
 
   render() {
