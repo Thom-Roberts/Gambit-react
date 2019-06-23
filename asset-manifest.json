@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/Gambit-react/static/js/main.2862c2c6.chunk.js",
-    "main.js.map": "/Gambit-react/static/js/main.2862c2c6.chunk.js.map",
+    "main.js": "/Gambit-react/static/js/main.f105cef9.chunk.js",
+    "main.js.map": "/Gambit-react/static/js/main.f105cef9.chunk.js.map",
     "runtime~main.js": "/Gambit-react/static/js/runtime~main.7dc1bf38.js",
     "runtime~main.js.map": "/Gambit-react/static/js/runtime~main.7dc1bf38.js.map",
     "static/js/2.7453674d.chunk.js": "/Gambit-react/static/js/2.7453674d.chunk.js",
     "static/js/2.7453674d.chunk.js.map": "/Gambit-react/static/js/2.7453674d.chunk.js.map",
     "index.html": "/Gambit-react/index.html",
-    "precache-manifest.7a395b321168b5f583f4df0da774b337.js": "/Gambit-react/precache-manifest.7a395b321168b5f583f4df0da774b337.js",
+    "precache-manifest.c62402143334cf34d5e50e895290ecf7.js": "/Gambit-react/precache-manifest.c62402143334cf34d5e50e895290ecf7.js",
     "service-worker.js": "/Gambit-react/service-worker.js"
   }
 }
