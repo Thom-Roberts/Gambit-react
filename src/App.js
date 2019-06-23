@@ -33,7 +33,7 @@ class App extends React.Component {
         'membershipType': response.membershipType,
         'characters': response.characters,
         'historicalStats': response.stats,
-      });
+      }, () => console.log(response)); // REMOVE this after debugging
     }).catch(reason => {
       alert(`Failed with response: ${reason}`);
     });
