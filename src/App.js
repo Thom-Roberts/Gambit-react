@@ -26,7 +26,7 @@ class App extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     let prom = main(this.state.username);
-  
+
     prom.then(response => {
       this.setState({
         'membershipId': response.membershipId,
@@ -66,14 +66,14 @@ class App extends React.Component {
         {this.state.characters.length > 0 &&
           <ul>
             {this.state.characters.map(character => {
-              return <li key={character.id}>
-                  {character.id}
+              return <li key={character}>
+                  {character}
                 </li>
             })}
           </ul>
         }
 
-        {this.state.historicalStats.length > 0 && 
+        {this.state.historicalStats.length > 0 &&
           <div>
             {this.state.historicalStats.map((characterStats, index) => {
               return <ul key={this.state.characters[index].id}>

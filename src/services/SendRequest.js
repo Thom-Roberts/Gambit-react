@@ -15,7 +15,8 @@ export function SendRequest(url) {
             reject(err);
          }
 			if(res.statusCode !== 200) {
-            reject(`Request failed: ${res.statusCode}: ${res.statusMessage}`);
+				console.error(res.body);
+            reject(`Request failed: ${res.statusCode}: ${JSON.parse(body).Message}`);
          }
 
          resolve(JSON.parse(body));
