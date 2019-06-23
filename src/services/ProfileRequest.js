@@ -52,8 +52,7 @@ export async function main(name) {
 async function GetMembershipData(name) {
 	try {
 		let data = await SendRequest(BUNGIEROOTPATH + SEARCHPLAYERURL(name));
-		//let data = await SendRequest(BUNGIEROOTPATH + SEARCHUSERSURL(name));
-		//let data2 = await SendRequest(BUNGIEROOTPATH + GETBYIDURL(data.Response[0].membershipId));
+		
 		return {
 			'membershipId': data.Response[0].membershipId,
 			'membershipType': data.Response[0].membershipType
