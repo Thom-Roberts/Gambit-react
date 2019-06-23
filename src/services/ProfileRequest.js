@@ -38,7 +38,12 @@ export async function main(name) {
 		memberObject.characters = characterIds;
 
 		memberObject.stats = historicalStats.map(characterStats => {
-			return characterStats.Response.allPvECompetitive.allTime;
+			if(characterStats.Response.allPvECompetitive.hasOwnProperty('allTime')) {
+				return characterStats.Response.allPvECompetitive.allTime;
+			}
+			else {
+				return {};
+			}
 		});
 
 		return memberObject;
