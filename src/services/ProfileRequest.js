@@ -1,6 +1,6 @@
 import { SendRequest } from './SendRequest';
 const BUNGIEROOTPATH = 'https://www.bungie.net/Platform/';
-const SEARCHPLAYERURL = (name) => {return `/Destiny2/SearchDestinyPlayer/-1/${name}/`};
+const SEARCHPLAYERURL = (name) => {return `/Destiny2/SearchDestinyPlayer/-1/${name.replace('#', '%23')}/`};
 const GETPROFILEURL = (membershipId, platformId) => {return `/Destiny2/${platformId}/Profile/${membershipId}/?components=100`};
 const GETHISTORICALSTATSURL = (membershipId, platformId, characterId) => {return `/Destiny2/${platformId}/Account/${membershipId}/Character/${characterId}/Stats/?modes=64`;};
 
@@ -52,6 +52,8 @@ export async function main(name) {
 async function GetMembershipData(name) {
 	try {
 		let data = await SendRequest(BUNGIEROOTPATH + SEARCHPLAYERURL(name));
+		//let data = await SendRequest(BUNGIEROOTPATH + SEARCHUSERSURL(name));
+		//let data2 = await SendRequest(BUNGIEROOTPATH + GETBYIDURL(data.Response[0].membershipId));
 		return {
 			'membershipId': data.Response[0].membershipId,
 			'membershipType': data.Response[0].membershipType
